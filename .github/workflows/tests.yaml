@@ -16,6 +16,10 @@ jobs:
       checks: write
       contents: read
     steps:
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
       - name: Checkout Code
         uses: actions/checkout@v1
       - name: Build and Run Tests
