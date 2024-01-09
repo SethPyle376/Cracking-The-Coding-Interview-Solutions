@@ -1,0 +1,30 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Run Tests
+    runs-on: ubuntu-latest
+    # Permissions block is optional, useful for dependabot checks
+    permissions:
+      checks: write
+      contents: read
+    steps:
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - name: Build and Run Tests
+        run: mvn test --batch-mode --fail-at-end
+      - name: Publish Test Report
+        if: success() || failure()
+        uses: scacap/action-surefire-report@v1
