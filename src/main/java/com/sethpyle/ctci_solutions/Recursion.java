@@ -25,6 +25,7 @@ public class Recursion {
       List<List<Boolean>> grid,
       RobotCoordinate currentCoordinate,
       Stack<RobotCoordinate> path) {
+    // If we're on the bottom right square, return
     if (currentCoordinate.y() == grid.size() - 1) {
       if (currentCoordinate.x() == grid.get(0).size() - 1) {
         path.push(currentCoordinate);
@@ -32,6 +33,7 @@ public class Recursion {
       }
     }
 
+    // Can we move down?
     if (currentCoordinate.y() < grid.size() - 1) {
       var newCoordinate = new RobotCoordinate(currentCoordinate.x(), currentCoordinate.y() + 1);
       if (grid.get(newCoordinate.y()).get(currentCoordinate.x())) {
@@ -42,6 +44,7 @@ public class Recursion {
       }
     }
 
+    // Can we move to the right?
     if (currentCoordinate.x() < grid.get(currentCoordinate.x()).size() - 1) {
       var newCoordinate = new RobotCoordinate(currentCoordinate.x() + 1, currentCoordinate.y());
       if (grid.get(newCoordinate.y()).get(newCoordinate.x())) {
@@ -51,6 +54,8 @@ public class Recursion {
         }
       }
     }
+
+    // Path not found involving this square
     return false;
   }
 }
